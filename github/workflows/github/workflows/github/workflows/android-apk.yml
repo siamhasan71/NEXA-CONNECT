@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "native-android/**"
+      - "./**"
       - ".github/workflows/android-apk.yml"
 
 permissions:
@@ -29,17 +29,17 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Make Gradle wrapper executable
-        working-directory: native-android
+        working-directory:. /
         run: chmod +x ./gradlew
 
       - name: Build Debug APK
-        working-directory: native-android
+        working-directory:./
         run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: NEXA-CONNECT-APK
-          path: native-android/app/build/outputs/apk/debug/*.apk
+          path:./app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
           retention-days: 14
